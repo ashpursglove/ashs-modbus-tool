@@ -21,7 +21,7 @@ Whether you’re debugging an ESP32, reading sensors, configuring industrial con
 
 ## Features
 
-### 🔌 **Serial Port Scanning (Auto + Manual Refresh)**
+### **Serial Port Scanning (Auto + Manual Refresh)**
 Plug in your USB–RS485 adapter.  
 Click **Refresh**.  
 Boom — ports appear.  
