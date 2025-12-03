@@ -81,25 +81,24 @@ Looks good enough that people might think you know what you’re doing.
 - An RS-485 adapter  
   *(Please don’t try talking Modbus through HDMI. Someone has done this before.)*
 
-Install required packages:
+## Install required packages:
 
-```bash
+
 pip install PyQt5 pyserial minimalmodbus
-📦 Installation
+
+📦 Installation  
 Clone or download this repository
 
 Install the dependencies above
 
 Plug in your USB–RS485 adapter
 
-Run the tester:
+### Run the tester:
 
-bash
-Copy code
 python modtest.py
 Welcome to the world of clean Modbus debugging.
 
-🚀 Usage
+## 🚀 Usage
 1. Select COM Port
 Use the dropdown or hit Refresh.
 If nothing appears, check your cables, your drivers, and your life choices.
@@ -156,20 +155,8 @@ If things work intermittently, your ground reference is probably laughing at you
 If everything works perfectly, celebrate — you are now a Modbus professional.
 (Or extremely lucky.)
 
-🧭 Project Structure
-pgsql
-Copy code
-modtest.py            - Entry point
-modules/
-    gui.py            - PyQt5 GUI layer
-    modbus.py         - Modbus operations (minimalmodbus wrapper)
-The logic is intentionally split so:
 
-The GUI stays clean
-
-The Modbus client can be reused in scripts, services, or automation pipelines
-
-🛣️ Roadmap
+# 🛣️ Roadmap
 (a.k.a. Features That Might Exist If Future-You Is Feeling Energetic)
 
 Batch reads/writes
@@ -185,15 +172,6 @@ Hex inspector
 Automatic detection of slave address
 
 “Chaos Mode™” — writes random values to everything
-(This will never be implemented. Hopefully.)
+(for when you want to leave your impression on site)
 
-📝 License
-MIT License — feel free to use, modify, break, and fix as you wish.
 
-❤️ Final Thoughts
-Modbus RTU is ancient, stubborn, and weird.
-But with the right tools — and the right amount of sarcasm — it’s actually fun.
-
-This tester aims to make Modbus debugging faster, clearer, and moderately less painful.
-
-Enjoy testing! 🔧⚡
