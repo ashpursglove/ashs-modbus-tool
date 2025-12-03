@@ -5,7 +5,7 @@
 
 ## What Is This?
 
-**Ash’s Modbus RTU Tester** is a dark-themed, feature-packed, highly-engineered desktop tool that lets you:
+**Ash’s Modbus RTU Tester** is a (thankfully) dark-themed, feature-packed, ""highly-engineered"" desktop tool that lets you:
 
 - Scan serial ports for RS-485 tools
 - Connect to any Modbus RTU device via RS-485  
