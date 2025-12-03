@@ -137,15 +137,15 @@ Seriously
 I see you
 
 ## Tips, Tricks & Real-World Wisdom
-If a read fails, 90% of the time it's the baud rate.
+- If a read fails, 90% of the time it's the baud rate.
 
-If a write fails, 90% of the time it's the slave ID.
+- If a write fails, 90% of the time it's the slave ID.
 
-If nothing works, 90% of the time your RS-485 A/B wires are backwards.
+- If nothing works, 90% of the time your RS-485 A/B wires are backwards.
 
-If things work intermittently, your ground reference is probably laughing at you.
+- If things work intermittently, your ground reference is probably laughing at you.
 
-If everything works perfectly, celebrate — you are now a Modbus professional.
+- If everything works perfectly, celebrate — you are now a Modbus professional.
 (Or extremely lucky....... or a witch)
 
 
