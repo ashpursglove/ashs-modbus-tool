@@ -157,7 +157,7 @@ If everything works perfectly, celebrate — you are now a Modbus professional.
 
 
 # 🛣️ Roadmap
-(a.k.a. Features That Might Exist If Future-You Is Feeling Energetic)
+###(a.k.a. Features That Might Exist If Future-Me Is Feeling Energetic..... or you bug me enough)
 
 Batch reads/writes
 
