@@ -3,7 +3,7 @@
 
 ---
 
-## 🔧 What Is This?
+## What Is This?
 
 **Ash’s Modbus RTU Tester** is a dark-themed, feature-packed, highly-engineered desktop tool that lets you:
 
@@ -19,7 +19,7 @@ Whether you’re debugging an ESP32, reading sensors, configuring industrial con
 
 ---
 
-## ✨ Features
+## Features
 
 ### 🔌 **Serial Port Scanning (Auto + Manual Refresh)**
 Plug in your USB–RS485 adapter.  
@@ -28,7 +28,7 @@ Boom — ports appear.
 Magic.  
 (The good kind, not the black-magic-Modbus kind.)
 
-### 🧩 **All Major Modbus Data Types**
+### **All Major Modbus Data Types**
 Read:
 - **Holding Registers (FC3)**
 - **Input Registers (FC4)**
@@ -41,13 +41,13 @@ Write:
 
 If a register type can't be written (e.g., Input Registers), the GUI will politely tell you to stop trying to break the universe.
 
-### 🎚️ **Scaling, Signed/Unsigned, Decimals**
+### **Scaling, Signed/Unsigned, Decimals**
 Automatically scale register values:
 - Want `1234` to become `12.34`? → Set decimals to `2`.
 - Want to treat a 16-bit register as a signed int? → Tick **Signed**.
 - Want to cause Modbus chaos? → Don’t use scaling and pretend it’s the device’s fault.
 
-### 📋 **Live Data Table**
+### **Live Data Table**
 Every read populates a three-column table:
 - **Address**
 - **Raw Value**
@@ -55,7 +55,7 @@ Every read populates a three-column table:
 
 Columns auto-resize, text is centre-aligned, and values are displayed cleanly.
 
-### 📝 **Operation Log**
+### **Operation Log**
 A timestamped log explains:
 - What function code was used  
 - What registers were touched  
@@ -66,13 +66,13 @@ A timestamped log explains:
 
 All in easy human language, not the cryptic nonsense Modbus usually gives you.
 
-### 🎨 **Dark Navy Theme**
+### **Dark Navy Theme**
 High-contrast, professional, and easy on the eyes during late-night debugging sessions.  
 Looks good enough that people might think you know what you’re doing.
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 
 - **Python 3.8+**
 - **PyQt5**
@@ -86,7 +86,7 @@ Looks good enough that people might think you know what you’re doing.
 
 pip install PyQt5 pyserial minimalmodbus
 
-📦 Installation  
+### Installation  
 Clone or download this repository
 
 Install the dependencies above
@@ -98,7 +98,7 @@ Plug in your USB–RS485 adapter
 python modtest.py
 Welcome to the world of clean Modbus debugging.
 
-## 🚀 Usage
+## Usage
 1. Select COM Port
 Use the dropdown or hit Refresh.
 If nothing appears, check your cables, your drivers, and your life choices.
@@ -143,7 +143,7 @@ Seriously
 
 I see you
 
-## 🧙‍♂️ Tips, Tricks & Real-World Wisdom
+## Tips, Tricks & Real-World Wisdom
 If a read fails, 90% of the time it's the baud rate.
 
 If a write fails, 90% of the time it's the slave ID.
@@ -156,7 +156,7 @@ If everything works perfectly, celebrate — you are now a Modbus professional.
 (Or extremely lucky....... or a witch)
 
 
-# 🛣️ Roadmap
+# Roadmap
 ### (a.k.a. Features That Might Exist If Future-Me Is Feeling Energetic..... or you bug me enough)
 
 Batch reads/writes
