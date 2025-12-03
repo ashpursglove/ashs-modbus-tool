@@ -154,17 +154,17 @@ If everything works perfectly, celebrate — you are now a Modbus professional.
 
 -Batch reads/writes
 
--Live graphing of register values
+- Live graphing of register values
 
--Saving/loading device profiles
+- Saving/loading device profiles
 
--CRC visualiser
+- CRC visualiser
 
--Hex inspector
+- Hex inspector
 
--Automatic detection of slave address
+- Automatic detection of slave address
 
--“Chaos Mode™” — writes random values to everything
+- “Chaos Mode™” — writes random values to everything
 (for when you want to leave your impression on site)
   
 
