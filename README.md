@@ -143,7 +143,7 @@ Seriously
 
 I see you
 
-🧙‍♂️ Tips, Tricks & Real-World Wisdom
+## 🧙‍♂️ Tips, Tricks & Real-World Wisdom
 If a read fails, 90% of the time it's the baud rate.
 
 If a write fails, 90% of the time it's the slave ID.
