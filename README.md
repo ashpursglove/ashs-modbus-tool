@@ -152,7 +152,7 @@ I see you
 # Roadmap
 ### (a.k.a. Features That Might Exist If Future-Me Is Feeling Energetic..... or you bug me enough)
 
--Batch reads/writes
+- Batch reads/writes
 
 - Live graphing of register values
 
