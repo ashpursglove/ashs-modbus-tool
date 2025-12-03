@@ -137,7 +137,7 @@ Click Write Value
 
 Be responsible
 
-Double-check before writing to coils connected to anything thats in prod, near people or can cause any mischif...   
+### Double-check before writing to coils connected to anything thats in prod, near people or can cause any mischief...   
 
 Seriously
 
