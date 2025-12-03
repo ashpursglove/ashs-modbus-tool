@@ -99,37 +99,37 @@ python modtest.py
 Welcome to the world of clean Modbus debugging.
 
 ## Usage
-**1. Select COM Port**
-Use the dropdown or hit Refresh.
-If nothing appears, check your cables, your drivers, and your life choices.
+**1. Select COM Port**  
+Use the dropdown or hit Refresh.  
+If nothing appears, check your cables, your drivers, and your life choices.  
+  
+**2. Choose Serial Settings**  
+Baud rate, parity, data bits, stop bits — all the classics.  
+Defaults match most industrial devices.  
+  
+**3. Pick Register Type**  
+Choose from:  
+Holding Registers  
+Input Registers  
+Coils  
+Discrete Inputs  
+  
+**UI adapts automatically (e.g., scaling disabled for bit types).**  
+  
+**4. Set Start Address & Count**  
+Tell the tester how many values you want.  
+(Up to 125 registers — because Modbus has rules and we follow them.)  
+  
+**5. Click “Fetch Data”**  
+Watch the table fill and the log scroll.  
+Feel powerful.  
 
-**2. Choose Serial Settings**
-Baud rate, parity, data bits, stop bits — all the classics.
-Defaults match most industrial devices.
-
-**3. Pick Register Type**
-Choose from:
-Holding Registers
-Input Registers
-Coils
-Discrete Inputs
-
-**UI adapts automatically (e.g., scaling disabled for bit types).**
-
-**4. Set Start Address & Count**
-Tell the tester how many values you want.
-(Up to 125 registers — because Modbus has rules and we follow them.)
-
-**5. Click “Fetch Data”**
-Watch the table fill and the log scroll.
-Feel powerful.
-
-**6. Write Values**
-Pick an address
-Enter a value
-Click Write Value
-**Be responsible**....... Like seriously....
-
+**6. Write Values**  
+Pick an address  
+Enter a value  
+Click Write Value  
+**Be responsible**....... Like seriously....  
+  
 ### Double-check before writing to coils connected to anything thats in prod, near people or can cause any mischief...   
 
 Seriously
