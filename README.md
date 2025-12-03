@@ -95,8 +95,8 @@ Plug in your USB–RS485 adapter
 
 ### Run the tester:
 
-python modtest.py
-Welcome to the world of clean Modbus debugging.
+python modtest.py  
+#### Welcome to the world of clean Modbus debugging.
 
 ## Usage
 **1. Select COM Port**  
