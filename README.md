@@ -166,8 +166,8 @@ I see you
 
 - Automatic detection of slave address
 
-- “Chaos Mode™” — writes random values to everything
-(for when you want to leave your impression on site)
+- *“Chaos Mode™” — writes random values to everything
+(for when you want to leave your impression on site)*
   
 
 
