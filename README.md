@@ -1,8 +1,10 @@
 # **Ash’s Modbus RTU Tester**  
-*For when you need to speak fluent Modbus RTU, but would rather click buttons and look cool while doing it.*
+*For when you need to speak fluent Modbus RTU, but want to look cool AF while doing it.*
 
 ---
+<img width="831" height="798" alt="image" src="https://github.com/user-attachments/assets/370774bb-e466-443e-abaa-e5812d00064c" />
 
+---
 ## What Is This?
 
 **Ash’s Modbus RTU Tester** is a (thankfully) dark-themed, feature-packed, ""highly-engineered"" desktop tool that lets you:
