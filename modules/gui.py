@@ -1,5 +1,4 @@
 
-
 """
 modules/gui.py
 
@@ -8,21 +7,25 @@ PyQt5 GUI for the Modbus RTU Tester.
 This module contains:
 
 - ModbusGui (QtWidgets.QMainWindow)
-    Tabs:
-        * "Modbus Tester" tab:
-            - choose COM port and serial parameters
-            - select register type (holding, input, coils, discrete inputs)
-            - select address range and scaling
-            - read a block of values
-            - write a single holding register or coil
-        * "Device Scanner" tab:
-            - choose COM port and serial parameters
-            - choose a slave ID range
-            - scan the RS485 bus for responding devices
+
+Tabs:
+    * "Modbus Tester" tab:
+        - choose COM port and serial parameters
+        - select register type (holding, input, coils, discrete inputs)
+        - select address range and scaling
+        - read a block of values (single-shot or live polling)
+        - write a single holding register or coil
+        - view raw Modbus RTU frames (TX/RX) and decoded exceptions
+    * "Device Scanner" tab:
+        - choose COM port and serial parameters
+        - choose a slave ID range
+        - scan the RS485 bus for responding devices
 
 All actual Modbus operations are delegated to ModbusClient, which lives
 in modules/modbus.py and is imported here.
 """
+
+from __future__ import annotations
 
 from typing import List, Union
 import time
@@ -47,7 +50,12 @@ class ModbusGui(QtWidgets.QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setWindowTitle("Ash's Modbus Tester")
-        self.resize(1000, 700)
+        self.resize(1000, 720)
+
+        # Internal state
+        self._poll_timer = QtCore.QTimer(self)
+        self._poll_timer.timeout.connect(self._on_poll_timer)
+        self._poll_in_progress = False
 
         self._create_widgets()
         self._create_layouts()
@@ -112,8 +120,16 @@ class ModbusGui(QtWidgets.QMainWindow):
 
         self.signed_checkbox = QtWidgets.QCheckBox("Signed values (for registers)")
 
+        # --- Polling controls ---
+        self.poll_enable_checkbox = QtWidgets.QCheckBox("Enable live polling")
+        self.poll_interval_label = QtWidgets.QLabel("Poll interval (ms):")
+        self.poll_interval_spin = QtWidgets.QSpinBox()
+        self.poll_interval_spin.setRange(100, 10000)
+        self.poll_interval_spin.setSingleStep(100)
+        self.poll_interval_spin.setValue(1000)
+
         # --- Read action & status ---
-        self.fetch_btn = QtWidgets.QPushButton("Fetch Data")
+        self.fetch_btn = QtWidgets.QPushButton("Fetch Data (single read)")
         self.fetch_btn.setFixedHeight(40)
 
         self.status_label = QtWidgets.QLabel("Ready.")
@@ -146,11 +162,11 @@ class ModbusGui(QtWidgets.QMainWindow):
         # --- Operation log (shared between tabs) ---
         self.log_view = QtWidgets.QPlainTextEdit()
         self.log_view.setReadOnly(True)
-        self.log_view.setMaximumHeight(180)
+        self.log_view.setMaximumHeight(220)
         self.log_view.setPlaceholderText(
             "Operation log will appear here.\n"
-            "Each read/write and scan will be summarised with function code, "
-            "addresses, values and slave IDs."
+            "Each read/write/scan will be summarised.\n"
+            "Raw RTU frames (TX/RX) and Modbus exceptions will also be shown."
         )
 
         # =========================
@@ -273,12 +289,21 @@ class ModbusGui(QtWidgets.QMainWindow):
         write_layout.addWidget(self.write_btn, 2, 0, 1, 2)
         self.write_group.setLayout(write_layout)
 
+        # Polling controls
+        poll_layout = QtWidgets.QHBoxLayout()
+        poll_layout.addWidget(self.poll_interval_label)
+        poll_layout.addWidget(self.poll_interval_spin)
+        poll_widget = QtWidgets.QWidget()
+        poll_widget.setLayout(poll_layout)
+
         left_layout = QtWidgets.QVBoxLayout()
         left_layout.addWidget(conn_group)
         left_layout.addWidget(serial_group)
         left_layout.addWidget(reg_group)
         left_layout.addWidget(self.write_group)
         left_layout.addStretch()
+        left_layout.addWidget(self.poll_enable_checkbox)
+        left_layout.addWidget(poll_widget)
         left_layout.addWidget(self.fetch_btn)
         left_layout.addWidget(self.status_label)
 
@@ -378,15 +403,14 @@ class ModbusGui(QtWidgets.QMainWindow):
         self.write_btn.clicked.connect(self._on_write_single_clicked)
         self.register_type_combo.currentIndexChanged.connect(self._on_register_type_changed)
 
+        self.poll_enable_checkbox.toggled.connect(self._on_poll_toggled)
+
         self.scan_refresh_btn.clicked.connect(self._refresh_scan_ports)
         self.scan_btn.clicked.connect(self._on_scan_clicked)
 
     # ------------------------------------------------------------------
     # Theming / defaults
     # ------------------------------------------------------------------
-
-
-
     def _apply_dark_theme(self) -> None:
         """
         Apply a high-contrast dark blue theme with bright text.
@@ -503,7 +527,7 @@ class ModbusGui(QtWidgets.QMainWindow):
                 background: rgb(100, 150, 240);
             }}
 
-            /* ---- Tabs ---- */
+            /* Tabs */
             QTabWidget::pane {{
                 border: 1px solid #3A4371;
                 background-color: rgb({base_bg.red()}, {base_bg.green()}, {base_bg.blue()});
@@ -528,7 +552,6 @@ class ModbusGui(QtWidgets.QMainWindow):
                 background-color: rgb(60, 120, 200);
             }}
         """)
-
 
     def _populate_serial_defaults(self) -> None:
         """
@@ -704,20 +727,70 @@ class ModbusGui(QtWidgets.QMainWindow):
             databits=databits,
             stopbits=stopbits,
             timeout=0.5,
+            frame_logger=self._frame_logger,
         )
         return client
+
+    # ------------------------------------------------------------------
+    # Live polling
+    # ------------------------------------------------------------------
+    def _on_poll_toggled(self, enabled: bool) -> None:
+        """
+        Enable or disable live polling mode.
+        """
+        if enabled:
+            interval_ms = self.poll_interval_spin.value()
+            self._poll_timer.start(interval_ms)
+            self.fetch_btn.setEnabled(False)
+            self._append_log(
+                f"LIVE POLLING enabled → interval {interval_ms} ms "
+                f"using current Modbus settings."
+            )
+            self.status_label.setText(
+                f"Live polling enabled ({interval_ms} ms)."
+            )
+        else:
+            self._poll_timer.stop()
+            self.fetch_btn.setEnabled(True)
+            self._append_log("LIVE POLLING disabled.")
+            self.status_label.setText("Live polling disabled. Ready.")
+
+    def _on_poll_timer(self) -> None:
+        """
+        Called periodically when live polling is enabled.
+        """
+        if self._poll_in_progress:
+            # Skip this tick if the previous read is still running
+            return
+        self._poll_in_progress = True
+        try:
+            self._perform_read(from_poll=True)
+        finally:
+            self._poll_in_progress = False
 
     # ------------------------------------------------------------------
     # Fetch (read) logic
     # ------------------------------------------------------------------
     def _on_fetch_clicked(self) -> None:
         """
-        Handle click on the "Fetch Data" button (main tester tab).
+        Handle click on the "Fetch Data" button (single-shot read).
+        """
+        self._perform_read(from_poll=False)
+
+    def _perform_read(self, from_poll: bool) -> None:
+        """
+        Core read logic used by both single-shot fetch and live polling.
+
+        If from_poll=True, we avoid modal error popups and just log.
         """
         try:
             client = self._build_client_from_ui()
         except Exception as exc:
-            self._show_error(str(exc))
+            if from_poll:
+                self._append_log(f"ERROR building client during poll: {exc}")
+                self.status_label.setText(f"Poll error: {exc}")
+            else:
+                self._show_error(str(exc))
             return
 
         start_addr = self.reg_start_spin.value()
@@ -726,14 +799,16 @@ class ModbusGui(QtWidgets.QMainWindow):
         signed = self.signed_checkbox.isChecked()
         reg_type = self.register_type_combo.currentText()
 
-        self.status_label.setText(
-            f"Reading {count} point(s) starting at address {start_addr} "
-            f"from slave {client.slave_id} on {client.port}..."
-        )
-        QtWidgets.QApplication.processEvents()
+        if not from_poll:
+            self.status_label.setText(
+                f"Reading {count} point(s) starting at address {start_addr} "
+                f"from slave {client.slave_id} on {client.port}..."
+            )
+            QtWidgets.QApplication.processEvents()
 
         self._append_log(
-            f"READ request → Type: {reg_type}, Slave: {client.slave_id}, "
+            f"{'POLL' if from_poll else 'READ'} request → "
+            f"Type: {reg_type}, Slave: {client.slave_id}, "
             f"Start address: {start_addr}, Count: {count}, "
             f"Decimals: {decimals if not reg_type.startswith(('Coils', 'Discrete Inputs')) else 'n/a'}, "
             f"Signed: {signed if not reg_type.startswith(('Coils', 'Discrete Inputs')) else 'n/a'}"
@@ -773,14 +848,27 @@ class ModbusGui(QtWidgets.QMainWindow):
             else:
                 raise ValueError(f"Unsupported register type: {reg_type}")
         except Exception as exc:
-            self._append_log(f"ERROR during READ: {exc}")
-            self._show_error(f"Error reading: {exc}")
+            msg = f"Error reading: {exc}"
+            self._append_log(f"ERROR during {'POLL' if from_poll else 'READ'}: {exc}")
+            if from_poll:
+                # Don't spam popups, just update status
+                self.status_label.setText(msg)
+            else:
+                self._show_error(msg)
             return
 
         self._populate_table(start_addr, values, decimals)
-        self.status_label.setText("Read OK.")
+
+        if from_poll:
+            self.status_label.setText(
+                f"Live polling OK. Last read returned {len(values)} value(s)."
+            )
+        else:
+            self.status_label.setText("Read OK.")
+
         self._append_log(
-            f"READ OK (FC{fc}) → Received {len(values)} value(s) starting at address {start_addr}."
+            f"{'POLL' if from_poll else 'READ'} OK (FC{fc}) → "
+            f"Received {len(values)} value(s) starting at address {start_addr}."
         )
 
     # ------------------------------------------------------------------
@@ -894,6 +982,7 @@ class ModbusGui(QtWidgets.QMainWindow):
             databits=databits,
             stopbits=stopbits,
             timeout=timeout,
+            frame_logger=self._frame_logger,
         )
         return client
 
@@ -949,7 +1038,6 @@ class ModbusGui(QtWidgets.QMainWindow):
 
             try:
                 # Generic probe: try reading holding register 0 (FC3)
-                # Many devices have at least something mapped there.
                 values = client.read_holding_registers(
                     start_address=0,
                     count=1,
@@ -962,8 +1050,7 @@ class ModbusGui(QtWidgets.QMainWindow):
                     f"SCAN: Slave {slave_id} ONLINE → FC3, address 0, value={values[0]}"
                 )
             except Exception:
-                # No response or error – we silently skip adding a row,
-                # but we could log if you want noisier output.
+                # No response or error -> ignore silently (can be noisy otherwise)
                 pass
 
         if responsive_ids:
@@ -1038,6 +1125,50 @@ class ModbusGui(QtWidgets.QMainWindow):
             self.table.setItem(row, 2, scaled_item)
 
         self.table.resizeColumnsToContents()
+
+    # ------------------------------------------------------------------
+    # Raw frame logger + exception decoder
+    # ------------------------------------------------------------------
+    def _frame_logger(self, request: bytes, response: bytes) -> None:
+        """
+        Called by ModbusClient's LoggingInstrument for every transaction.
+
+        Logs raw TX/RX frames and decodes Modbus exceptions if present.
+        """
+        req_hex = " ".join(f"{b:02X}" for b in request)
+        res_hex = " ".join(f"{b:02X}" for b in response)
+
+        self._append_log(f"TX (raw): {req_hex}")
+        self._append_log(f"RX (raw): {res_hex}")
+
+        # Detect Modbus exception:
+        # Response function code = request FC + 0x80, and third byte is exception code
+        if len(response) >= 3:
+            func_code = response[1]
+            if func_code & 0x80:
+                exc_code = response[2]
+                desc = self._decode_exception_code(exc_code)
+                self._append_log(
+                    f"MODBUS EXCEPTION → Code {exc_code}: {desc}"
+                )
+
+    @staticmethod
+    def _decode_exception_code(code: int) -> str:
+        """
+        Translate standard Modbus exception codes into human-readable text.
+        """
+        mapping = {
+            1: "Illegal function (the function code is not supported by this device).",
+            2: "Illegal data address (you’re asking for a register/coil the device doesn’t implement).",
+            3: "Illegal data value (value is outside allowed range or invalid).",
+            4: "Slave device failure (internal error in the slave).",
+            5: "Acknowledge (request accepted, processing will take place but is not complete).",
+            6: "Slave device busy (try again later).",
+            8: "Memory parity error (error in device memory).",
+            10: "Gateway path unavailable.",
+            11: "Gateway target device failed to respond.",
+        }
+        return mapping.get(code, "Unknown exception code (non-standard or vendor-specific).")
 
     # ------------------------------------------------------------------
     # Log + error helpers
