@@ -237,8 +237,7 @@ But it won’t make it worse.
 - A USB–RS485 adapter
 
 Modbus is not Ethernet.  
-It will not negotiate.  
-It does not forgive.
+Even though it tastes the same
 
 ---
 
@@ -292,7 +291,7 @@ Do NOT write to:
 ---
 
 ## Roadmap
-### Also Known As “After I Recover Emotionally”
+### If I get round to it or if you bother me enough
 
 - Batch reads and writes
 - Live plotting
