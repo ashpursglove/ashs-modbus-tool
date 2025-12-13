@@ -225,15 +225,16 @@ No surprise background services.
 - Enter address and count
 - Read once or enable polling
 - Write carefully
-
-Do not write to:
+- 
+Do NOT write to:
 - Live machinery
 - Safety systems
-- Anything with inertia
-- Anything that can injure someone
+- Anything that spins
+- Anything expensive
+- Anything connected to humans
 
-Modbus will not stop you.  
-This tool will try.
+**If you ignore this and something explodes, that’s between you and God.**  
+**Modbus will not stop you.**  
 
 ---
 
