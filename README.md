@@ -298,6 +298,6 @@ Do NOT write to:
 - Auto-filling tester settings from scanner results
 
 - **Chaos Mode™**
-  Random writes everywhere! For when you want to leave a permanent emotional imprint on a site
+  Writes random values everywhere! For when you want to leave a permanent emotional imprint on a site
 
 ---
