@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed --name "Ashmodbus" --icon pepeico.ico modtest.py
