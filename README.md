@@ -243,7 +243,7 @@ This tool will try.
 - If writes fail, check slave ID
 - If nothing works, swap A/B
 - If it works intermittently, grounding is probably bad
-- If it works perfectly, do not update anything
+- If it works perfectly, shut up and don’t touch anything
 
 ---
 
@@ -263,4 +263,3 @@ This tool will try.
 
 ---
 
-If this tool saves you time, doubt, or a second serial terminal window, it’s doing its job.
