@@ -1,173 +1,270 @@
-# **Ash’s Modbus RTU Tester**  
-### *For when you need to speak fluent Modbus RTU and want to look cool AF while doing it.*
+# Ash’s Modbus RTU Tester
+### For when you need to interrogate Modbus devices and refuse to do it like a caveman.
 
 ---
+
 <img width="831" height="798" alt="image" src="https://github.com/user-attachments/assets/370774bb-e466-443e-abaa-e5812d00064c" />
 
 ---
+
 ## What Is This?
 
-**Ash’s Modbus RTU Tester** is a (thankfully) dark-themed, feature-packed, ""highly-engineered"" desktop tool that lets you:
+**Ash’s Modbus RTU Tester** is a dark-themed, aggressively practical desktop application for talking to Modbus RTU devices without losing your sanity, your eyesight, or your temper.
 
-- Scan serial ports for RS-485 tools
-- Connect to any Modbus RTU device via RS-485  
-- Read Holding Registers, Input Registers, Coils, and Discrete Inputs  
-- Write to coils or holding registers (responsibly… preferably not while the machine is in production...come on boys....)  
-- View raw and scaled values, including signed/unsigned handling  
-- Log every operation in plain English so even non-Modbus people can follow along  
-- Do all this *without* ever touching a command line
+It exists because:
+- Register maps lie
+- Serial terminals are hostile environments
+- Clicking “read” 300 times should not be a personality trait
+- And life is too short to decode Modbus exceptions by vibes alone
 
-Whether you’re debugging an ESP32, reading sensors, configuring industrial controllers, or desperately trying to understand why the register map says one thing and the device does another — this tool has you covered.
+This is a **local-only**, **no-cloud**, **no-login**, **no-subscription**, **no-bullshit** tool.  
+Your data stays on your machine.  
+Your devices stay confused, but less so.
 
 ---
 
-## Features
+## What It Does (In Plain English)
 
-### **Serial Port Scanning (Auto + Manual Refresh)**
+You can use this tool to:
+
+- Scan your system for serial ports like a civilized human
+- Connect to Modbus RTU devices over RS-485
+- Read:
+  - Holding Registers
+  - Input Registers
+  - Coils
+  - Discrete Inputs
+- Write:
+  - Holding Registers
+  - Coils
+- Apply scaling, signed/unsigned handling, and decimal sanity
+- Watch values update live without hammering buttons
+- See raw Modbus RTU frames because sometimes you need receipts
+- Decode Modbus exception responses into actual words
+- Scan an entire RS-485 bus and find out what’s *actually alive*
+
+All without touching a terminal.  
+All without memorizing function codes like it’s 1997.
+
+---
+
+## Features (a.k.a. Why This Exists)
+
+### Serial Port Scanning
 Plug in your USB–RS485 adapter.  
 Click **Refresh**.  
-Boom — ports appear.  
-Magic.  
-(The good kind, not the black-magic-Modbus kind.)
+Ports appear.
 
-### **All Major Modbus Data Types**
-Read:
-- **Holding Registers (FC3)**
-- **Input Registers (FC4)**
-- **Coils (FC1)**
-- **Discrete Inputs (FC2)**
+If nothing shows up:
+- Check drivers
+- Check cables
+- Check whether the adapter is actually plugged in
+- Check your life choices, briefly
 
-Write:
-- **Holding Register (FC16)**  
-- **Single Coil (FC5)**
+---
 
-If a register type can't be written (e.g., Input Registers), the GUI will politely tell you to stop trying to break the universe.
+### Supports All The Important Modbus Stuff
+Read functions:
+- FC3 Holding Registers
+- FC4 Input Registers
+- FC1 Coils
+- FC2 Discrete Inputs
 
-### **Scaling, Signed/Unsigned, Decimals**
-Automatically scale register values:
-- Want `1234` to become `12.34`? → Set decimals to `2`.
-- Want to treat a 16-bit register as a signed int? → Tick **Signed**.
-- Want to cause Modbus chaos? → Don’t use scaling and pretend it’s the device’s fault.
+Write functions:
+- FC16 Write Holding Registers
+- FC5 Write Single Coil
 
-### **Live Data Table**
-Every read populates a three-column table:
-- **Address**
-- **Raw Value**
-- **Scaled Value**
+If you try to write to something that cannot be written, the UI will gently stop you instead of letting you set fire to reality.
 
-Columns auto-resize, text is centre-aligned, and values are displayed cleanly.
+---
 
-### **Operation Log**
-A timestamped log explains:
-- What function code was used  
-- What registers were touched  
-- What values were read/written  
-- Successes  
-- Errors  
-- Your life decisions  
+### Scaling, Signedness & Decimals
+Because raw register values are lies wrapped in integers.
 
-All in easy human language, not the cryptic nonsense Modbus usually gives you.
+- Convert 1234 into 12.34 by setting decimals
+- Treat registers as signed when the device designer had feelings
+- Or ignore scaling entirely and blame the device manufacturer
 
-### **Dark Navy Theme**
-High-contrast, professional, and easy on the eyes during late-night debugging sessions.  
-Looks good enough that people might think you know what you’re doing.
+All options are explicit. Nothing is hidden. Nothing is guessed.
+
+---
+
+### Live Data Table
+Every read populates a clean table showing:
+- Address
+- Raw Value
+- Scaled Value
+
+Columns auto-size.  
+Text is readable.  
+No Excel rituals required.
+
+---
+
+### Live Polling Mode
+For when clicking “Read” repeatedly starts to feel like a cry for help.
+
+- Enable polling
+- Set an interval
+- Watch values update continuously
+
+Perfect for:
+- Sensors that drift
+- Counters that increment
+- Diagnosing flaky wiring
+- Pretending you’re running a SCADA system while actually reading register 0
+
+---
+
+### Raw RTU Frame Inspector
+When vibes are not enough.
+
+Every transaction logs:
+- Raw TX bytes
+- Raw RX bytes
+
+You can:
+- Verify CRCs
+- Inspect payloads
+- Prove the gateway is lying
+- Or confirm that yes, the device really did send that nonsense
+
+Nothing hidden. Nothing abstracted away.
+
+---
+
+### Modbus Exception Decoder
+When the device responds with a firm, confident “No.”
+
+Instead of dumping a cryptic error code, the log explains it in human language:
+
+- Illegal Function: “I don’t support that”
+- Illegal Data Address: “That register does not exist”
+- Illegal Data Value: “That value is cursed”
+- Device Failure: “Something inside me is screaming”
+
+You get clarity.  
+The device gets judged.
+
+---
+
+### Operation Log
+A brutally honest, timestamped log that records:
+- Function codes used
+- Addresses accessed
+- Values read or written
+- Errors
+- Exceptions
+- Raw frames
+- Your slow descent into Modbus expertise
+
+Readable by humans.  
+Not written by demons.
+
+---
+
+### Device Scanner Tab
+For inherited installs where:
+- Nobody documented slave IDs
+- Half the bus is dead
+- The rest was wired by someone who vanished in 2013
+
+Scan a range of slave IDs and instantly see which devices actually respond.
+
+It answers the most important Modbus question:
+“Who the hell is even here?”
+
+---
+
+### Dark Navy Theme
+- High contrast
+- Easy on the eyes
+- Late-night-debugging approved
+
+Looks professional enough that people might stop hovering behind you asking questions.
 
 ---
 
 ## Requirements
 
-- **Python 3.8+**
-- **PyQt5**
-- **pyserial**
-- **minimalmodbus**
-- An RS-485 adapter  
-  *(Please don’t try talking Modbus through HDMI. Someone has done this before.)*
+- Python 3.8+
+- PyQt5
+- pyserial
+- minimalmodbus
+- A USB–RS485 adapter
 
-## Install required packages:
+Do not attempt Modbus over HDMI.  
+Do not attempt Modbus over vibes.
 
+---
 
-pip install PyQt5 pyserial minimalmodbus
+## Installation
 
-### Installation  
-Clone or download this repository
+- Clone or download the repository
+- Install dependencies
+- Plug in your RS-485 adapter
+- Run the application
 
-Install the dependencies above
+That’s it.  
+No installers arguing with you.  
+No license agreements written by lawyers.
 
-Plug in your USB–RS485 adapter
+---
 
-### Run the tester:
+## Usage (The Short Version)
 
-python modtest.py  
-#### Welcome to the world of clean Modbus debugging.
+- Select a COM port
+- Set serial parameters
+- Choose register type
+- Enter start address and count
+- Read once or enable live polling
+- Write values carefully and with intent
 
-## Usage
-**1. Select COM Port**  
-Use the dropdown or hit Refresh.  
-If nothing appears, check your cables, your drivers, and your life choices.  
-  
-**2. Choose Serial Settings**  
-Baud rate, parity, data bits, stop bits — all the classics.  
-Defaults match most industrial devices.  
-  
-**3. Pick Register Type**  
-Choose from:  
-Holding Registers  
-Input Registers  
-Coils  
-Discrete Inputs  
-  
-**UI adapts automatically (e.g., scaling disabled for bit types).**  
-  
-**4. Set Start Address & Count**  
-Tell the tester how many values you want.  
-(Up to 125 registers — because Modbus has rules and we follow them.)  
-  
-**5. Click “Fetch Data”**  
-Watch the table fill and the log scroll.  
-Feel powerful.  
+Double-check before writing to anything connected to:
+- Motors
+- Valves
+- Humans
+- Expensive machinery
+- Anything that could ruin your week
 
-**6. Write Values**  
-Pick an address  
-Enter a value  
-Click Write Value  
-**Be responsible**....... Like seriously....  
-  
-### Double-check before writing to coils connected to anything that's in prod, near people or can cause any mischief...   
+I am serious.
 
-Seriously
+---
 
-I see you
+## Tips From The Field
 
-## Tips, Tricks & Real-World Wisdom
-- If a read fails, 90% of the time it's the baud rate.
+- If reads fail, it’s probably the baud rate
+- If writes fail, it’s probably the slave ID
+- If nothing works, swap A/B lines
+- If it works sometimes, your ground reference is mocking you
+- If everything works perfectly, do not celebrate too loudly
 
-- If a write fails, 90% of the time it's the slave ID.
+Something will notice.
 
-- If nothing works, 90% of the time your RS-485 A/B wires are backwards.
+---
 
-- If things work intermittently, your ground reference is probably laughing at you.
+## Roadmap
+### a.k.a. Features That May Exist If I Am Fueled By Coffee And Spite
 
-- If everything works perfectly, celebrate — you are now a Modbus professional.
-(Or extremely lucky....... or a witch)
+- Batch reads and writes
+- Live graphing
+- Device profiles
+- CRC visualisation
+- Packet filters
+- Auto slave detection
+- Better device fingerprinting
+- Double-click devices from Scanner to auto-configure the Tester
 
+- **Chaos Mode™**
+  Writes random values to everything  
+  For when you want to leave a permanent emotional imprint on a site
 
-# Roadmap
-### (a.k.a. Features That Might Exist If Future-Me Is Feeling Energetic..... or you bug me enough)
+(Chaos Mode is a joke.  
+Probably.)
 
-- Batch reads/writes
+---
 
-- Live graphing of register values
+If this tool saves you time, confusion, or at least one angry sigh, it has done its job.
 
-- Saving/loading device profiles
-
-- CRC visualiser
-
-- Hex inspector
-
-- Automatic detection of slave address
-
-- **“Chaos Mode™” — writes random values to everything
-(for when you want to leave your impression on site)**
-  
 
 
