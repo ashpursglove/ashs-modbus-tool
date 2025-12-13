@@ -56,6 +56,39 @@ No “smart” automation making assumptions on your behalf.
 
 ---
 
+## Yes, There’s an EXE (Relax)
+
+There is a **pre-built Windows EXE** included in this repository.
+
+Before anyone starts clearing their throat:
+
+- Yes, it’s there
+- Yes, you can use it
+- No, it does not make you a bad engineer
+- Yes, some people will judge you anyway
+
+The EXE exists for:
+- Being on site
+- Being tired
+- Being done with Python environments
+- Wanting the tool to just open and work immediately
+
+Using the EXE is:
+- Considered “cheating” by people who haven’t shipped anything this year
+- Deeply offensive to the “I always build from source” crowd
+- Extremely convenient in the real world
+
+**OGs build from source.**  
+They also mention it.  
+Repeatedly.
+
+Everyone else double-clicks the EXE, gets the job done, and keeps it to themselves.
+
+Both approaches work.  
+One just comes with a louder opinion.
+
+---
+
 ## Features (All Earned the Hard Way)
 
 ### Serial Port Scanning
@@ -211,6 +244,11 @@ It does not forgive.
 - Plug in your adapter
 - Run the application
 
+Or:
+- Double-click the EXE
+- Ignore the faint screaming from GitHub purists
+- Finish the job
+
 No installers.  
 No wizards.  
 No surprise background services.
@@ -225,7 +263,7 @@ No surprise background services.
 - Enter address and count
 - Read once or enable polling
 - Write carefully
-- 
+
 Do NOT write to:
 - Live machinery
 - Safety systems
@@ -263,4 +301,3 @@ Do NOT write to:
   Random writes everywhere! For when you want to leave a permanent emotional imprint on a site
 
 ---
-
