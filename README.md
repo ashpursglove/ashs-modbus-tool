@@ -268,7 +268,7 @@ No surprise background services.
 - Read once or enable polling
 - Write carefully
 
-Do NOT write to:
+Unless you really **REALLY** know what youre doing, do NOT write to:
 - Live machinery
 - Safety systems
 - Anything that spins
@@ -303,5 +303,10 @@ Do NOT write to:
 
 - **Chaos Mode™**
   Writes random values everywhere! For when you want to leave a permanent emotional imprint on a site
+
+# License
+
+MIT License.  
+Use it, modify it, ship it, break it — just don’t blame me when you bring down the whole site!
 
 ---
