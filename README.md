@@ -234,7 +234,7 @@ Do NOT write to:
 - Anything connected to humans
 
 ### If you ignore this and something explodes, that’s between you and God.**  
-**Modbus will not stop you.**  
+#### Modbus will not stop you.
 
 ---
 
