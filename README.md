@@ -90,7 +90,7 @@ One just comes with a louder opinion.
 **I've also included the pepe .ICO file and the base images i used to make it as well as
 the pyinstaller command if you want to mess round with everything and re-build it**
   
-**And who says I'm not a nice guy!**
+### And who says I'm not a nice guy!
 
 ---
 
