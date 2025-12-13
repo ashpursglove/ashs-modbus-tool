@@ -9,17 +9,22 @@
 
 ## What This Is (And Why It Exists)
 
-**Ash’s Modbus RTU Tester** is a local desktop application for talking to Modbus RTU devices when you no longer trust:
-- Register maps
-- Vendor documentation
-- “It works on our test bench”
-- Or your own memories of what FC3 actually did on this device last year
+It was built because:
+- Register maps are works of fiction
+- Vendors lie with confidence
+- Serial terminals hate you personally
+- And “just try another baud rate” is not a debugging strategy
 
-This exists because Modbus is simple, until it isn’t.  
-And when it isn’t, most tools either:
-- Hide too much
-- Abstract too much
-- Or expect you to enjoy staring at raw hex in a serial console
+This tool is:
+- 100% local
+- No cloud
+- No accounts
+- No telemetry
+- No “free tier”
+- No asking you nicely to sign in with Google
+
+It runs on your machine and minds its own business.  
+Like software used to.
 
 This tool assumes you are tired, skeptical, and just want the truth.
 
@@ -105,7 +110,7 @@ Nothing “helpfully” rounded away.
 ---
 
 ### Live Polling
-For when “click Read again” stops being funny.
+For when “click Read again” stops being a lifestyle you enjoy.
 
 - Enable polling
 - Set interval
@@ -138,10 +143,10 @@ Instead of:
 “Exception code 0x02”
 
 You get:
-- Illegal Function: not supported, never was
-- Illegal Data Address: that register does not exist
-- Illegal Data Value: technically valid, practically nonsense
-- Device Failure: something internal has given up
+- Illegal Function: Not supported, never was, c'mon bro
+- Illegal Data Address: That register does not exist, stop asking
+- Illegal Data Value: Technically valid, practically nonsense
+- Device Failure: Something inside me is burning.
 
 Still Modbus.  
 Just less cryptic.
