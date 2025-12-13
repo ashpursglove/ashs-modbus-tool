@@ -170,7 +170,8 @@ Readable by humans who have already accepted the nature of this protocol.
 For buses where:
 - Slave IDs were never written down
 - Half the devices were added “temporarily”
-- And nobody is sure what still responds
+- Nobody is sure what still responds
+- The bus was obviously wired during a nasty divorce
 
 Scan an ID range and see who answers.
 
@@ -259,10 +260,7 @@ This tool will try.
 
 - **Chaos Mode™**
   Random writes everywhere  
-  For testing assumptions, not production systems
-
-(Chaos Mode is hypothetical.  
-Modbus already provides enough chaos.)
+  For when you want to leave a permanent emotional imprint on a site
 
 ---
 
