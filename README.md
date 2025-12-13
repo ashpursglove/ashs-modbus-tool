@@ -233,8 +233,8 @@ Do NOT write to:
 - Anything expensive
 - Anything connected to humans
 
-### If you ignore this and something explodes, that’s between you and God.**  
-#### Modbus will not stop you.
+### If you ignore this and something explodes, that’s between you and God.
+### Modbus will not stop you.
 
 ---
 
