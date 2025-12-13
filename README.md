@@ -275,7 +275,7 @@ No surprise background services.
 - Safety systems
 - Anything that spins
 - Anything expensive
-- Anything connected to humans
+- Anything connected to or near soft and squishy humans
 
 ### If you ignore this and something explodes, that’s between you and God.
 ### Modbus will not stop you.
