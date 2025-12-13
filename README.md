@@ -87,6 +87,9 @@ Everyone else double-clicks the EXE, gets the job done, and keeps it to themselv
 Both approaches work.  
 One just comes with a louder opinion.
 
+I've also included the pepe .ICO file and the base images i used to make it as well as the pyinstaller command if you want to mess round with
+everything and re-build it. Who says I'm not a nice guy!
+
 ---
 
 ## Features (All Earned the Hard Way)
