@@ -306,9 +306,9 @@ No surprise background services.
 - **Chaos Mode™**
   Writes random values everywhere! For when you want to leave a permanent emotional imprint on a site
 
+---
 # License
 
 MIT License.  
 Use it, modify it, ship it, break it — just don’t blame me when you bring down the whole site!
-
 ---
