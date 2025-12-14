@@ -56,7 +56,7 @@ No “smart” automation making assumptions on your behalf.
 
 ---
 
-## Yes, There’s an EXE (Relax)
+## Yes, There’s an EXE Release (Relax)
 
 There is a **pre-built Windows EXE** included in this repository.
 
@@ -244,9 +244,9 @@ Even though it tastes the same
 ## Installation
 
 - Clone or download the repository
-- Install dependencies
+- pip install -r requirements.txt
 - Plug in your adapter
-- Run the application
+- python modtest.py
 
 Or:
 - Double-click the EXE
