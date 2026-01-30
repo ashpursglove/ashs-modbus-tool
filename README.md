@@ -101,10 +101,13 @@ Plug in your USB–RS485 adapter.
 Hit Refresh.  
 Ports appear.
 
+#### Modbus is not Ethernet.  
+#### Even though it tastes the same
+
 If they don’t:
 - The driver is wrong
-- The adapter is fake
-- Or Windows has decided to be Windows
+- The adapter is fake (this has legit happened to me a couple of times, they're out there!)
+- Windows has decided to be Windows (get ready to start googling USB permission updates)
 
 ---
 
@@ -181,10 +184,10 @@ Instead of:
 “Exception code 0x02”
 
 You get:
-- Illegal Function: Not supported, never was, c'mon bro
-- Illegal Data Address: That register does not exist, stop asking
-- Illegal Data Value: Technically valid, practically nonsense
-- Device Failure: Something inside me is burning.
+- Illegal Function: means => Not supported, never was, c'mon bro
+- Illegal Data Address: means => That register does not exist, stop asking
+- Illegal Data Value: means => Technically valid, practically nonsense
+- Device Failure: means => Something inside me is burning.
 
 Still Modbus.  
 Just less cryptic.
@@ -215,10 +218,12 @@ Scan an ID range and see who answers.
 
 It’s not discovery.  
 It’s survival.
+*Anyone who's serviced a Modbus network before already know how useful this is!*
 
 ---
 
 ### Dark Theme
+- Beacuse I'm OG
 - High contrast
 - Low glare
 - Designed for late nights and bad documentation
@@ -235,9 +240,6 @@ But it won’t make it worse.
 - pyserial
 - minimalmodbus
 - A USB–RS485 adapter
-
-Modbus is not Ethernet.  
-Even though it tastes the same
 
 ---
 
@@ -277,7 +279,7 @@ No surprise background services.
 - Anything expensive
 - Anything connected to or near soft and squishy humans
 
-### If you ignore this and something explodes, that’s between you and God.
+### If you ignore this and something explodes, that’s between you and your God.
 ### Modbus will not stop you.
 
 ---
