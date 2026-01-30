@@ -94,7 +94,7 @@ the pyinstaller command if you want to mess round with everything and re-build i
 
 ---
 
-## Features (All Earned the Hard Way)
+## Features
 
 ### Serial Port Scanning
 Plug in your USB–RS485 adapter.  
