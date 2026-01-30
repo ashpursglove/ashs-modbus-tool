@@ -308,7 +308,7 @@ No surprise background services.
 - Auto-filling tester settings from scanner results
 
 - **Chaos Mode™**
-  Writes random values everywhere! For when you want to leave a permanent emotional imprint on a site
+  Writes random values to every register everywhere and anywhere! For when you want to leave a permanent emotional imprint on a site
 
 ---
 # License
