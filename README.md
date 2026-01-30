@@ -211,7 +211,7 @@ Readable by humans who have already accepted the nature of this protocol.
 ### Device Scanner
 <img width="996" height="922" alt="image" src="https://github.com/user-attachments/assets/1d884c48-fec4-4b3b-8a29-9bb8ed3447dc" />
 
-For buses where:
+### For buses where:
 - Slave IDs were never written down
 - Half the devices were added “temporarily”
 - Nobody is sure what still responds
