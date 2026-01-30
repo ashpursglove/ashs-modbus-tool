@@ -2,8 +2,7 @@
 ### A pragmatic tool for people who have already been hurt by Modbus.
 
 ---
-
-<img width="831" height="798" alt="image" src="https://github.com/user-attachments/assets/370774bb-e466-443e-abaa-e5812d00064c" />
+<img width="993" height="917" alt="image" src="https://github.com/user-attachments/assets/8923eb6a-aeab-402c-910a-383d504b1b11" />
 
 ---
 
@@ -210,6 +209,8 @@ Readable by humans who have already accepted the nature of this protocol.
 ---
 
 ### Device Scanner
+<img width="996" height="922" alt="image" src="https://github.com/user-attachments/assets/1d884c48-fec4-4b3b-8a29-9bb8ed3447dc" />
+
 For buses where:
 - Slave IDs were never written down
 - Half the devices were added “temporarily”
